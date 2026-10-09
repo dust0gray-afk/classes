@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>برنامه کلاس‌ها</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#5b6470">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e4e5e8;--card:#f4f4f5;--ink:#26292e;--mute:#6a6e76;--line:#cbcdd2;--accent:#5b6470;--on:#fff;--cls:#667085;--exm:#d6453d;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1c1f;--card:#26282c;--ink:#e7e8ea;--mute:#9a9ea6;--line:#3a3d43;--accent:#aab1bd;--on:#16181b;--exm:#f0675d}}
+:root[data-theme="dark"]{--bg:#1b1c1f;--card:#26282c;--ink:#e7e8ea;--mute:#9a9ea6;--line:#3a3d43;--accent:#aab1bd;--on:#16181b;--exm:#f0675d}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.7}
+main{max-width:980px;margin:0 auto;padding:16px}
+h1{font-size:1.4rem;font-weight:800;margin:4px 0 14px}
+h2{font-size:1rem;font-weight:600;margin:0 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+form{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+label{display:flex;flex-direction:column;font-size:.8rem;color:var(--mute);gap:2px}
+input,select,button{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 9px;min-width:0}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+button{cursor:pointer}
+button.add{background:var(--accent);color:var(--on);border:0;font-weight:600;align-self:end;padding:9px}
+#msg{min-height:1.5em;font-size:.85rem;margin:8px 0 0;color:#d6455d}
+.nav{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.nav b{flex:1;text-align:center;min-width:120px;font-weight:600}
+.scroll{overflow-x:auto}
+.tt{display:grid;grid-template-columns:44px repeat(7,minmax(104px,1fr));min-width:780px}
+.hd{text-align:center;font-weight:600;font-size:.85rem;padding:4px 0;border-bottom:1px solid var(--line);line-height:1.4}
+.hd small{font-weight:400;color:var(--mute)}
+.hd.td{color:var(--accent)}
+.col{position:relative;border-inline-start:1px solid var(--line);
+background:repeating-linear-gradient(to bottom,transparent 0,transparent 51px,var(--line) 51px,var(--line) 52px)}
+.hr{position:absolute;inset-inline:0;font-size:.7rem;color:var(--mute);text-align:center;transform:translateY(-.6em)}
+.blk{position:absolute;inset-inline:3px;border-radius:8px;color:#fff;padding:3px 6px;font-size:.78rem;line-height:1.35;overflow:hidden;border:2px solid transparent}
+.blk b{display:block;font-weight:600}
+.blk.ex{background:var(--card);color:var(--ink)}
+.blk:not(.ex){padding-inline-end:28px}
+.nav button.on{background:var(--accent);color:var(--on);border-color:var(--accent)}
+.mh{font-weight:600;margin:14px 0 4px;font-size:.95rem}
+.chk{width:26px;height:26px;padding:0;flex:none;border:2px solid var(--mute);border-radius:7px;background:none;line-height:1}
+.chk[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on)}
+.badge{color:var(--exm);border:2px solid;border-radius:7px;font-size:.7rem;padding:0 6px;flex:none;line-height:22px}
+li.done span.t{text-decoration:line-through;opacity:.6}
+.blk.done{opacity:.6}
+.mg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.mhd{text-align:center;font-size:.75rem;color:var(--mute)}
+.mc{min-height:68px;border:1px solid var(--line);border-radius:6px;padding:2px;display:flex;flex-direction:column;gap:2px;overflow:hidden;cursor:pointer}
+.mc.out{opacity:.45}
+.mc.td{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.dn{font-size:.7rem;color:var(--mute)}
+.chip{font:inherit;font-size:.6rem;line-height:1.3;color:#fff;border:2px solid transparent;border-radius:4px;padding:0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:start;display:block;width:100%;cursor:pointer}
+.chip.ex{background:var(--card);color:var(--ink);cursor:default}
+.chip.done{opacity:.5;text-decoration:line-through}
+.blk.done b{text-decoration:line-through}
+.tick{position:absolute;top:1px;inset-inline-end:3px;width:22px;height:22px;padding:0;border-radius:6px;background:rgba(255,255,255,.2);border:2px solid #fff;color:#fff;font-size:.85rem;line-height:1;display:flex;align-items:center;justify-content:center}
+ul{list-style:none;margin:0;padding:0}
+li{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:.9rem}
+li:first-child{border-top:0}
+.dot{width:12px;height:12px;border-radius:50%;flex:none}
+li span.t{flex:1}
+li small{color:var(--mute)}
+li button{padding:4px 10px;font-size:.8rem}
+.empty{color:var(--mute);font-size:.9rem;margin:0}
+</style>
+</head>
+<body>
+<main>
+<h1>برنامه کلاس‌ها و امتحانات</h1>
+
+<section class="card" id="top">
+<div class="nav"><button id="vweek" type="button">نمای هفتگی</button><button id="vall" type="button">همه جلسه‌ها</button><button id="vmon" type="button">تقویم ماهانه</button></div>
+<div id="wkview">
+<div class="nav">
+<button id="prev" type="button">هفته قبل</button>
+<b id="wk"></b>
+<button id="next" type="button">هفته بعد</button>
+<button id="now" type="button">این هفته</button>
+</div>
+<div class="scroll"><div class="tt" id="tt"></div></div>
+</div>
+<div id="allview" hidden></div>
+<div id="monview" hidden></div>
+</section>
+
+<section class="card">
+<h2>امتحانات</h2>
+<ul id="ex"></ul>
+</section>
+
+<section class="card">
+<h2>درس‌ها</h2>
+<ul id="list"></ul>
+</section>
+
+<section class="card">
+<h2>افزودن کلاس هفتگی</h2>
+<form id="f">
+<label>نام درس<input id="name" required placeholder="مثلاً ریاضی ۲"></label>
+<label>روز<select id="day"></select></label>
+<label>شروع<input id="s" type="time" value="08:00" required></label>
+<label>پایان<input id="e" type="time" value="09:30" required></label>
+<label>کلاس<input id="room" placeholder="اختیاری"></label>
+<label>استاد<input id="teacher" placeholder="اختیاری"></label>
+<button class="add" type="submit">افزودن به برنامه</button>
+</form>
+<p id="msg" role="status"></p>
+</section>
+</main>
+
+<script>
+var DAYS=['شنبه','یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه'];
+var COLORS=[['آبی','#2f6fed'],['سبز','#1e9e74'],['بنفش','#8b5cf6'],['نارنجی','#d9701a'],['قرمز','#d6455d'],['فیروزه‌ای','#0e8fa3']];
+var START=7,END=21,H=52;
+function $(id){return document.getElementById(id)}
+function fa(s){return String(s).replace(/\d/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'[d]})}
+function esc(s){return String(s).replace(/[&<>"]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]})}
+function mins(t){var p=t.split(':');return +p[0]*60+ +p[1]}
+function pad(n){return (n<10?'0':'')+n}
+function iso2d(i){var p=i.split('-');return new Date(Date.UTC(+p[0],p[1]-1,+p[2]))}
+function addDays(i,n){var d=iso2d(i);d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
+function wd(i){return (iso2d(i).getUTCDay()+1)%7}
+function satOf(i){return addDays(i,-wd(i))}
+var fmt;try{fmt=new Intl.DateTimeFormat('fa-IR-u-ca-persian',{day:'numeric',month:'long',timeZone:'UTC'})}catch(e){fmt=null}
+function jd(i){return fmt?fmt.format(iso2d(i)):i}
+function wk(start,n){var a=[];for(var i=0;i<n;i++)a.push(addDays(start,7*i));return a}
+var t=new Date(),TODAY=t.getFullYear()+'-'+pad(t.getMonth()+1)+'-'+pad(t.getDate()),ws=satOf(TODAY);
+
+var SEED=[
+{name:'اصول حسابداری ۲',color:'#2f6fed',room:'کلاس ۱',t:'نیک روگورابجیری علی',s:'08:30',e:'10:00',dates:wk('2026-10-09',8),exam:{date:'2027-01-04',s:'11:00',e:'13:00'}},
+{name:'ریاضیات پایه',color:'#1e9e74',room:'کلاس ۲',t:'عالی کپورچال سمیرا',s:'08:00',e:'09:30',dates:wk('2026-11-17',7),exam:{date:'2027-01-11',s:'13:30',e:'15:30'}},
+{name:'احکام کسب و کار',color:'#8b5cf6',room:'کلاس ۴',t:'قدم زن جلالی اصغر',s:'12:30',e:'13:30',dates:['2026-12-06'],exam:{date:'2027-01-09',s:'08:30',e:'10:30'}},
+{name:'آشنایی با قوانین کسب کار',color:'#d9701a',room:'کلاس ۴',t:'قدم زن جلالی اصغر',s:'13:30',e:'14:00',dates:['2026-12-13'],exam:{date:'2027-01-18',s:'08:30',e:'10:30'}},
+{name:'مدیریت رفتار سازمانی',color:'#d6455d',exam:{date:'2027-01-13',s:'11:00',e:'13:00'}},
+{name:'تفسیر موضوعی قرآن',color:'#0e8fa3',exam:{date:'2027-01-25',s:'08:30',e:'09:30'}},
+{name:'کاربرد کامپیوتر در مدیریت',color:'#6b7280',exam:{date:'2027-01-17',s:'11:00',e:'13:00'}}
+];
+var KEY='courses_v3',courses=null;
+try{var raw=localStorage.getItem(KEY);courses=raw?JSON.parse(raw):null}catch(e){courses=null}
+if(!courses)courses=SEED.slice();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(courses))}catch(e){}}
+var DK='done_v1',DONE={};
+try{DONE=JSON.parse(localStorage.getItem(DK)||'{}')||{}}catch(e){DONE={}}
+function saveDone(){try{localStorage.setItem(DK,JSON.stringify(DONE))}catch(e){}}
+
+DAYS.forEach(function(d,i){$('day').add(new Option(d,i))});
+
+function eventsFor(iso,di){var out=[];
+  courses.forEach(function(c){
+    if(c.s&&(c.dates?c.dates.indexOf(iso)>=0:c.day==di))out.push({c:c,s:c.s,e:c.e,k:'c',i:iso});
+    if(c.exam&&c.exam.date==iso)out.push({c:c,s:c.exam.s,e:c.exam.e,k:'x'});
+  });return out}
+function dayOf(c){return c.dates?wd(c.dates[0]):c.day}
+function info(c){var a=[];
+  if(c.s){
+    if(c.dates){var f=c.dates[0],l=c.dates[c.dates.length-1];a.push(DAYS[wd(f)]+' '+fa(c.s)+' تا '+fa(c.e)+(c.dates.length>1?' (از '+jd(f)+' تا '+jd(l)+')':' (فقط '+jd(f)+')'))}
+    else a.push('هر '+DAYS[c.day]+' '+fa(c.s)+' تا '+fa(c.e));
+    if(c.room)a.push(c.room);if(c.t)a.push(c.t);
+  }else a.push('فقط امتحان');
+  if(c.dates)a.push(fa(c.dates.filter(function(d){return DONE[c.name+'|'+d]}).length)+' از '+fa(c.dates.length)+' جلسه تیک خورده');
+  if(c.exam)a.push('امتحان '+DAYS[wd(c.exam.date)]+' '+jd(c.exam.date));
+  return esc(a.join(' · '))}
+
+function render(){
+  var h='<div class="hd"></div>',i,total=(END-START)*H,dates=[];
+  for(i=0;i<7;i++){dates.push(addDays(ws,i));h+='<div class="hd'+(dates[i]==TODAY?' td':'')+'">'+DAYS[i]+'<br><small>'+jd(dates[i])+'</small></div>'}
+  h+='<div class="col" style="height:'+total+'px;border:0;background:none">';
+  for(i=0;i<=END-START;i++)h+='<div class="hr" style="top:'+i*H+'px">'+fa(START+i)+'</div>';
+  h+='</div>';
+  for(i=0;i<7;i++){
+    h+='<div class="col" style="height:'+total+'px">';
+    eventsFor(dates[i],i).forEach(function(v){
+      var c=v.c,x=v.k=='x',key=c.name+'|'+v.i,dn=!x&&DONE[key],top=(mins(v.s)-START*60)/60*H,ht=(mins(v.e)-mins(v.s))/60*H;
+      h+='<div class="blk'+(x?' ex':'')+(dn?' done':'')+'" title="'+esc(c.name)+'" style="top:'+top+'px;height:'+(ht-2)+'px;'+(x?'border-color:var(--exm)':'background:var(--cls)')+'">'+(x?'':'<button type="button" class="tick" data-k="'+esc(key)+'" aria-label="تیک جلسه" aria-pressed="'+!!dn+'">'+(dn?'✓':'')+'</button>')+'<b>'+esc(c.name)+'</b>'+(x?'امتحان<br>':(c.room?esc(c.room)+'<br>':''))+fa(v.s)+'–'+fa(v.e)+'</div>';
+    });
+    h+='</div>';
+  }
+  $('tt').innerHTML=h;
+  $('wk').textContent=jd(dates[0])+' تا '+jd(dates[6]);
+  var ex=courses.filter(function(c){return c.exam}).sort(function(a,b){return a.exam.date<b.exam.date?-1:1});
+  $('ex').innerHTML=ex.length?ex.map(function(c){var x=c.exam;
+    return '<li><i class="dot" style="background:var(--exm)"></i><span class="t">'+esc(c.name)+' <small>'+DAYS[wd(x.date)]+' '+jd(x.date)+'، '+fa(x.s)+' تا '+fa(x.e)+'</small></span><button type="button" data-d="'+x.date+'">نمایش</button></li>'}).join(''):'<p class="empty">امتحانی ثبت نشده است.</p>';
+  $('list').innerHTML=courses.length?courses.map(function(c,i){
+    return '<li><i class="dot" style="background:'+(c.s?'var(--cls)':'var(--exm)')+'"></i><span class="t">'+esc(c.name)+' <small>'+info(c)+'</small></span><button type="button" data-i="'+i+'">حذف</button></li>'}).join(''):'<p class="empty">هنوز درسی اضافه نکرده‌اید. از فرم پایین اولین درس را وارد کنید.</p>';
+  if(VIEW=='all')renderAll();
+  if(VIEW=='mon')renderMonth();
+}
+
+var VIEW='week',mf;
+try{mf=new Intl.DateTimeFormat('fa-IR-u-ca-persian',{month:'long',year:'numeric',timeZone:'UTC'})}catch(e){mf={format:function(d){return d.toISOString().slice(0,7)}}}
+function renderAll(){
+  var ev=[],h='',cur='';
+  courses.forEach(function(c){
+    if(c.dates&&c.s)c.dates.forEach(function(d){ev.push({d:d,c:c,k:'c',s:c.s,e:c.e})});
+    if(c.exam)ev.push({d:c.exam.date,c:c,k:'x',s:c.exam.s,e:c.exam.e});
+  });
+  ev.sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:mins(a.s)-mins(b.s)});
+  ev.forEach(function(v){
+    var m=mf.format(iso2d(v.d)),c=v.c,x=v.k=='x',key=c.name+'|'+v.d,dn=!x&&DONE[key];
+    if(m!=cur){if(cur)h+='</ul>';h+='<div class="mh">'+m+'</div><ul>';cur=m}
+    h+='<li class="'+(dn?'done':'')+'">'+(x?'<span class="badge" style="border-color:var(--exm)">امتحان</span>':'<button type="button" class="chk" data-k="'+esc(key)+'" aria-label="تیک جلسه" aria-pressed="'+!!dn+'">'+(dn?'✓':'')+'</button>')+'<span class="t"><i class="dot" style="background:'+(x?'var(--exm)':'var(--cls)')+';display:inline-block"></i> '+esc(c.name)+' <small>'+DAYS[wd(v.d)]+' '+jd(v.d)+'، '+fa(v.s)+' تا '+fa(v.e)+(!x&&c.room?' · '+esc(c.room):'')+(v.d==TODAY?' · امروز':'')+'</small></span></li>';
+  });
+  $('allview').innerHTML=h?h+'</ul>':'<p class="empty">جلسه‌ای ثبت نشده است.</p>';
+}
+var fd;try{fd=new Intl.DateTimeFormat('en-US-u-ca-persian',{day:'numeric',timeZone:'UTC'})}catch(e){fd=null}
+function jday(i){var n=fd?parseInt(fd.format(iso2d(i)),10):NaN;return isNaN(n)?+i.slice(8):n}
+function firstOf(i){return addDays(i,-(jday(i)-1))}
+function nextMon(m){var n=addDays(m,28);while(jday(n)!=1)n=addDays(n,1);return n}
+function prevMon(m){return firstOf(addDays(m,-1))}
+var mon=firstOf(TODAY),SH=['ش','ی','د','س','چ','پ','ج'];
+function renderMonth(){
+  var last=addDays(nextMon(mon),-1),h='<div class="nav"><button type="button" data-m="-1">ماه قبل</button><b>'+mf.format(iso2d(mon))+'</b><button type="button" data-m="1">ماه بعد</button></div><div class="mg">';
+  SH.forEach(function(d){h+='<div class="mhd">'+d+'</div>'});
+  for(var d=satOf(mon);d<=last||wd(d)!=0;d=addDays(d,1)){
+    h+='<div class="mc'+(d>=mon&&d<=last?'':' out')+(d==TODAY?' td':'')+'" data-d="'+d+'"><span class="dn">'+fa(jday(d))+'</span>';
+    eventsFor(d,wd(d)).forEach(function(v){
+      var c=v.c,x=v.k=='x',key=c.name+'|'+d,dn=!x&&DONE[key];
+      h+=x?'<span class="chip ex" style="border-color:var(--exm)">'+esc(c.name)+'</span>':'<button type="button" class="chip'+(dn?' done':'')+'" data-k="'+esc(key)+'" style="background:var(--cls)">'+(dn?'✓ ':'')+esc(c.name)+'</button>';
+    });
+    h+='</div>';
+  }
+  $('monview').innerHTML=h+'</div>';
+}
+function setView(v){VIEW=v;$('wkview').hidden=v!='week';$('allview').hidden=v!='all';$('monview').hidden=v!='mon';$('vmon').classList.toggle('on',v=='mon');$('vweek').classList.toggle('on',v=='week');$('vall').classList.toggle('on',v=='all');render()}
+$('vweek').onclick=function(){setView('week')};
+$('vall').onclick=function(){setView('all')};
+$('vmon').onclick=function(){setView('mon')};
+function go(n){ws=addDays(ws,n);render()}
+$('prev').onclick=function(){go(-7)};
+$('next').onclick=function(){go(7)};
+$('now').onclick=function(){ws=satOf(TODAY);render()};
+$('ex').addEventListener('click',function(ev){
+  var b=ev.target.closest('button');if(!b)return;
+  ws=satOf(b.dataset.d);setView('week');$('top').scrollIntoView({behavior:'smooth'});
+});
+$('list').addEventListener('click',function(ev){
+  var b=ev.target.closest('button');if(!b)return;
+  courses.splice(+b.dataset.i,1);save();render();
+});
+function tog(ev){
+  var b=ev.target.closest('.tick,.chk,.chip[data-k]');if(!b)return;
+  var k=b.dataset.k;if(DONE[k])delete DONE[k];else DONE[k]=1;saveDone();render();
+}
+$('tt').addEventListener('click',tog);$('allview').addEventListener('click',tog);$('monview').addEventListener('click',tog);
+$('monview').addEventListener('click',function(ev){
+  if(ev.target.closest('.chip[data-k]'))return;
+  var m=ev.target.closest('[data-m]');
+  if(m){mon=+m.dataset.m>0?nextMon(mon):prevMon(mon);render();return}
+  var c=ev.target.closest('.mc');if(c){ws=satOf(c.dataset.d);setView('week')}
+});
+$('f').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var c={name:$('name').value.trim(),day:+$('day').value,s:$('s').value,e:$('e').value,room:$('room').value.trim(),t:$('teacher').value.trim()};
+  var m=$('msg');m.textContent='';
+  if(mins(c.e)<=mins(c.s)){m.textContent='زمان پایان باید بعد از شروع باشد.';return}
+  if(mins(c.s)<START*60||mins(c.e)>END*60){m.textContent='ساعت کلاس باید بین ۷ صبح تا ۹ شب باشد.';return}
+  var clash=courses.filter(function(o){return o.s&&dayOf(o)==c.day&&mins(o.s)<mins(c.e)&&mins(c.s)<mins(o.e)})[0];
+  courses.push(c);save();render();
+  if(clash)m.textContent='هشدار: این کلاس با «'+clash.name+'» هم‌زمان است.';
+  $('name').value='';$('room').value='';$('teacher').value='';
+});
+setView('week');
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
+</script>
+</body>
+</html>
